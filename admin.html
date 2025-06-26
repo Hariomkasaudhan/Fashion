@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionWear | Your Style Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #f8f8f8;
+            --accent: #e63946;
+            --light-accent: #ff9aa2;
+            --text: #333;
+            --light-text: #777;
+            --border: #e0e0e0;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, #e63946 0%, #ff6b6b 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 85vh;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .brand-panel {
+            flex: 1;
+            background: var(--gradient);
+            color: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+        }
+
+        .content-panel {
+            flex: 1.5;
+            background: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-logo span {
+            color: white;
+        }
+
+        .brand-logo i {
+            margin-right: 15px;
+        }
+
+        .brand-quote {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+            line-height: 1.4;
+        }
+
+        .brand-highlight {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .fashion-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .fashion-icon {
+            font-size: 32px;
+            background: rgba(255,255,255,0.15);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .form-title {
+            font-size: 36px;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .form-subtitle {
+            color: var(--light-text);
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        .form-toggle {
+            display: flex;
+            margin-bottom: 30px;
+            background: var(--secondary);
+            border-radius: 50px;
+            padding: 5px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .toggle-btn.active {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember input {
+            margin-right: 8px;
+        }
+
+        .forgot-password {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 35px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+        }
+
+        .social-login {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .social-text {
+            position: relative;
+            margin-bottom: 20px;
+            color: var(--light-text);
+        }
+
+        .social-text::before,
+        .social-text::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .social-text::before {
+            left: 0;
+        }
+
+        .social-text::after {
+            right: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--secondary);
+            color: var(--primary);
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: var(--accent);
+            color: white;
+        }
+
+        .profile-section {
+            display: none;
+            width: 100%;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid white;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+        }
+
+        .profile-email {
+            color: var(--light-text);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            color: var(--light-text);
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .profile-box {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-box-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .info-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            width: 120px;
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .info-value {
+            flex: 1;
+        }
+
+        .order-history {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .order-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .order-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .order-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .order-details {
+            flex: 1;
+        }
+
+        .order-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .order-meta {
+            display: flex;
+            font-size: 14px;
+            color: var(--light-text);
+        }
+
+        .order-meta div {
+            margin-right: 15px;
+        }
+
+        .order-price {
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .btn-logout {
+            background: var(--secondary);
+            color: var(--accent);
+            margin-top: 30px;
+            box-shadow: none;
+            border: 1px solid var(--border);
+        }
+
+        .btn-logout:hover {
+            background: #f0f0f0;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .panel-container {
+                flex-direction: column;
+            }
+            
+            .brand-panel {
+                padding: 30px;
+            }
+            
+            .content-panel {
+                padding: 30px;
+            }
+            
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .brand-panel {
+                padding: 20px;
+            }
+            
+            .content-panel {
+                padding: 20px;
+            }
+            
+            .form-title {
+                font-size: 28px;
+            }
+            
+            .profile-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .profile-name {
+                font-size: 24px;
+            }
+        }
+        
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast i {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .toast.success i {
+            color: #2ecc71;
+        }
+        
+        .toast.error i {
+            color: #e74c3c;
+        }
+        
+        .toast .toast-text {
+            font-weight: 500;
+        }
+        
+        .toast .toast-close {
+            margin-left: 20px;
+            cursor: pointer;
+            color: #777;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel-container">
+            <!-- Brand Panel -->
+            <div class="brand-panel">
+                <div class="brand-logo">
+                    <i class="fas fa-tshirt"></i>Fashion<span>Wear</span>
+                </div>
+                <div class="brand-quote">
+                    "Style is a way to say <span class="brand-highlight">who you are</span> without having to speak."
+                </div>
+                <div class="fashion-icons">
+                    <div class="fashion-icon"><i class="fas fa-tshirt"></i></div>
+                    <div class="fashion-icon"><i class="fas fa-shoe-prints"></i></div>
+                    <div class="fashion-icon"><i class="fas fa-ring"></i></div>
+                    <div class="fashion-icon"><i class="fas fa-sunglasses"></i></div>
+                </div>
+            </div>
+            
+            <!-- Content Panel -->
+            <div class="content-panel">
+                <!-- Login/Signup Form -->
+                <div class="form-container" id="auth-container">
+                    <h1 class="form-title">Welcome Back</h1>
+                    <p class="form-subtitle">Sign in to access your style profile</p>
+                    
+                    <div class="form-toggle">
+                        <div class="toggle-btn active" id="login-toggle">Login</div>
+                        <div class="toggle-btn" id="signup-toggle">Sign Up</div>
+                    </div>
+                    
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        
+                        <div class="remember-forgot">
+                            <div class="remember">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">Remember me</label>
+                            </div>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn">Login to Your Account</button>
+                        
+                        <div class="social-login">
+                            <div class="social-text">Or continue with</div>
+                            <div class="social-icons">
+                                <div class="social-icon"><i class="fab fa-google"></i></div>
+                                <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                                <div class="social-icon"><i class="fab fa-apple"></i></div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <form id="signup-form" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" id="signup-confirm" class="form-control" placeholder="Confirm your password" required>
+                        </div>
+                        
+                        <button type="submit" class="btn">Create Account</button>
+                        
+                        <div class="social-login">
+                            <div class="social-text">Or sign up with</div>
+                            <div class="social-icons">
+                                <div class="social-icon"><i class="fab fa-google"></i></div>
+                                <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                                <div class="social-icon"><i class="fab fa-apple"></i></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Profile Section -->
+                <div class="profile-section" id="profile-section">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img id="profile-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="User Avatar">
+                        </div>
+                        <h1 class="profile-name" id="profile-name">Hariom </h1>
+                        <div class="profile-email" id="profile-email">abc123@gmail.com</div>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-card">
+                                <h3 id="order-count">24</h3>
+                                <p>Orders</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3 id="rating">4.8</h3>
+                                <p>Avg. Rating</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3 id="member-years">3</h3>
+                                <p>Years</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-content">
+                        <div class="profile-box">
+                            <h2 class="profile-box-title">Account Details</h2>
+                            <div class="info-item">
+                                <div class="info-label">Full Name:</div>
+                                <div class="info-value" id="account-name">Saurabh </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Email:</div>
+                                <div class="info-value" id="account-email">saurabh1234.@gmail.com</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Phone:</div>
+                                <div class="info-value">+91 91*****27</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Member Since:</div>
+                                <div class="info-value">January 15, 2022</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Status:</div>
+                                <div class="info-value"><span style="color: #2ecc71; font-weight: 600;">Premium Member</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-box">
+                            <h2 class="profile-box-title">Shipping Address</h2>
+                            <div class="info-item">
+                                <div class="info-value">
+                                    123 Fashion Street<br>
+                                    Sec 148<br>
+                                    NOIDA, Uttar Pradesh  <br>
+                                    INDIA 
+                                </div>
+                            </div>
+                           <!-- <div class="info-item">
+                                <div class="info-label">Default:</div>
+                                <div class="info-value">Yes</div>
+                            </div>
+                            <div class="info-item">
+                                <button class="btn" style="margin-top: 10px;">Edit Address</button>
+                            </div>-->
+                        </div>
+                        
+                        <div class="profile-box">
+                            <h2 class="profile-box-title">Preferences</h2>
+                            <div class="info-item">
+                                <div class="info-label">Style:</div>
+                                <div class="info-value">Casual & Chic</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Size:</div>
+                                <div class="info-value">Women's M (US 6-8)</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Colors:</div>
+                                <div class="info-value">Navy, Burgundy, Olive</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Brands:</div>
+                                <div class="info-value">FashionWear, LuxeStyle</div>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-box">
+                            <h2 class="profile-box-title">Recent Orders</h2>
+                            <div class="order-history">
+                                <div class="order-item">
+                                    <div class="order-img">
+                                        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Premium T-Shirt">
+                                    </div>
+                                    <div class="order-details">
+                                        <div class="order-title">Premium Cotton T-Shirt</div>
+                                        <div class="order-meta">
+                                            <div>#ORD-1245</div>
+                                            <div>Oct 14, 2023</div>
+                                        </div>
+                                    </div>
+                                    <div class="order-price">₹999</div>
+                                </div>
+                                
+                                <div class="order-item">
+                                    <div class="order-img">
+                                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Casual Jacket">
+                                    </div>
+                                    <div class="order-details">
+                                        <div class="order-title">Casual Denim Jacket</div>
+                                        <div class="order-meta">
+                                            <div>#ORD-1238</div>
+                                            <div>Oct 10, 2023</div>
+                                        </div>
+                                    </div>
+                                    <div class="order-price">₹799</div>
+                                </div>
+                                
+                                <div class="order-item">
+                                    <div class="order-img">
+                                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80" alt="Summer Dress">
+                                    </div>
+                                    <div class="order-details">
+                                        <div class="order-title">Floral Summer Dress</div>
+                                        <div class="order-meta">
+                                            <div>#ORD-1229</div>
+                                            <div>Sep 28, 2023</div>
+                                        </div>
+                                    </div>
+                                    <div class="order-price">₹599</div>
+                                </div>
+                            </div>
+                            <button class="btn" style="margin-top: 15px;">View All Orders</button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-logout" id="logout-btn">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span class="toast-text">Successfully logged in!</span>
+        <span class="toast-close">&times;</span>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginToggle = document.getElementById('login-toggle');
+        const signupToggle = document.getElementById('signup-toggle');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const authContainer = document.getElementById('auth-container');
+        const profileSection = document.getElementById('profile-section');
+        const logoutBtn = document.getElementById('logout-btn');
+        const toast = document.getElementById('toast');
+        const toastClose = toast.querySelector('.toast-close');
+        
+        // Profile Elements
+        const profileName = document.getElementById('profile-name');
+        const profileEmail = document.getElementById('profile-email');
+        const accountName = document.getElementById('account-name');
+        const accountEmail = document.getElementById('account-email');
+        const profileAvatar = document.getElementById('profile-avatar');
+        const orderCount = document.getElementById('order-count');
+        const rating = document.getElementById('rating');
+        const memberYears = document.getElementById('member-years');
+        
+        // Form Elements
+        const loginEmail = document.getElementById('login-email');
+        const signupName = document.getElementById('signup-name');
+        const signupEmail = document.getElementById('signup-email');
+        
+        // Default profile data
+        const defaultProfile = {
+            name: "Sarah Johnson",
+            email: "sarah.j@example.com",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+            orders: 24,
+            rating: 4.8,
+            years: 3
+        };
+        
+        // Toggle between login and signup forms
+        loginToggle.addEventListener('click', () => {
+            loginToggle.classList.add('active');
+            signupToggle.classList.remove('active');
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+        });
+        
+        signupToggle.addEventListener('click', () => {
+            signupToggle.classList.add('active');
+            loginToggle.classList.remove('active');
+            signupForm.style.display = 'block';
+            loginForm.style.display = 'none';
+        });
+        
+        // Show toast notification
+        function showToast(message, isSuccess = true) {
+            const icon = toast.querySelector('i');
+            const text = toast.querySelector('.toast-text');
+            
+            toast.classList.remove('success', 'error');
+            toast.classList.add(isSuccess ? 'success' : 'error');
+            
+            icon.className = isSuccess ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            text.textContent = message;
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Close toast
+        toastClose.addEventListener('click', () => {
+            toast.classList.remove('show');
+        });
+        
+        // Update profile with user data
+        function updateProfile(name, email) {
+            // Set profile name and email
+            profileName.textContent = name;
+            profileEmail.textContent = email;
+            accountName.textContent = name;
+            accountEmail.textContent = email;
+            
+            // Generate a random avatar based on name
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+            const colors = ['#e63946', '#1d3557', '#2a9d8f', '#e76f51', '#264653'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Create dynamic avatar
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            // Draw background
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw text
+            ctx.font = 'bold 80px Montserrat';
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(initials, 100, 100);
+            
+            // Set avatar
+            profileAvatar.src = canvas.toDataURL();
+            
+            // Generate random stats for demo
+            orderCount.textContent = Math.floor(Math.random() * 20) + 5;
+            rating.textContent = (Math.random() * 1 + 4).toFixed(1);
+            memberYears.textContent = Math.floor(Math.random() * 5) + 1;
+        }
+        
+        // Login functionality
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = loginEmail.value.trim();
+            
+            if (!email) {
+                showToast("Please enter your email", false);
+                return;
+            }
+            
+            const name = email.split('@')[0];
+            const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
+            
+            updateProfile(formattedName, email);
+            
+            authContainer.style.display = 'none';
+            profileSection.style.display = 'block';
+            
+            showToast(`Welcome back, ₹{formattedName}!`);
+        });
+        
+        // Signup functionality
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = signupName.value.trim();
+            const email = signupEmail.value.trim();
+            const password = document.getElementById('signup-password').value;
+            const confirm = document.getElementById('signup-confirm').value;
+            
+            if (!name) {
+                showToast("Please enter your full name", false);
+                return;
+            }
+            
+            if (!email) {
+                showToast("Please enter your email", false);
+                return;
+            }
+            
+            if (password !== confirm) {
+                showToast("Passwords do not match", false);
+                return;
+            }
+            
+            // Update profile with entered data
+            updateProfile(name, email);
+            
+            authContainer.style.display = 'none';
+            profileSection.style.display = 'block';
+            
+            showToast(`Welcome to FashionWear, ₹{name}!`);
+        });
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            profileName.textContent = defaultProfile.name;
+            profileEmail.textContent = defaultProfile.email;
+            accountName.textContent = defaultProfile.name;
+            accountEmail.textContent = defaultProfile.email;
+            profileAvatar.src = defaultProfile.avatar;
+            orderCount.textContent = defaultProfile.orders;
+            rating.textContent = defaultProfile.rating;
+            memberYears.textContent = defaultProfile.years;
+            
+            profileSection.style.display = 'none';
+            authContainer.style.display = 'block';
+            
+            loginToggle.classList.add('active');
+            signupToggle.classList.remove('active');
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            
+            loginForm.reset();
+            signupForm.reset();
+            
+            showToast("You have been logged out");
+        });
+        
+        // Demo: Auto login after 2 seconds for presentation
+        setTimeout(() => {
+           
+        }, 2000);
+    </script>
+</body>
+</html>

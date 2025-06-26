@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Method</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .payment-page {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .payment-page h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        #payment-total {
+            font-weight: bold;
+            color: #222;
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background: #218838;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-page">
+        <h2>Payment Method</h2>
+        <p>Total Amount: <span id="payment-total">₹0.00</span></p>
+        
+        <form id="payment-form">
+            <label>
+                Card Number:
+                <input type="text" placeholder="1234 5678 9012 3456" required>
+            </label>
+            <label>
+                Expiry:
+                <input type="text" placeholder="MM/YY" required>
+            </label>
+            <label>
+                CVV:
+                <input type="password" placeholder="123" required>
+            </label>
+            <button type="submit">Pay Now</button>
+        </form>
+
+        <a href="index.html">← Back to Home</a>
+    </div>
+
+
+<script>
+    document.getElementById('checkout-btn').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Get total from cart
+        const total = document.getElementById('cart-total')?.textContent || '0.00';
+        const numericTotal = parseFloat(total.replace(/[^\d.]/g, '')).toFixed(2);
+
+        // Redirect to payment page with total as query param
+        window.location.href = `payment.html?total=${numericTotal}`;
+    });
+</script>
+    <script>
+        // Read total price from URL query
+        const urlParams = new URLSearchParams(window.location.search);
+        const total = urlParams.get('total');
+        document.getElementById('payment-total').textContent = `₹${total || '0.00'}`;
+
+        // Form submit mock
+        document.getElementById('payment-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Payment successful! (Mock)');
+            window.location.href = 'index.html';
+        });
+         document.getElementById('checkout-btn').addEventListener('click', function () {
+        const totalAmount = calculateCartTotal(); // example function
+        
+        window.location.href = `payment.html?total=${totalAmount}`;
+    });
+
+   
+    </script>
+</body>
+</html>
